@@ -1,0 +1,16 @@
+{
+    "non-media": {
+        "link": 764,
+        "native_video": 5039,
+        "photo": 2252,
+        "status": 1196,
+        "others": 1380
+    },
+    "media": {
+        "link": 583,
+        "native_video": 2575,
+        "photo": 1390,
+        "status": 444,
+        "others": 924
+    }
+}
