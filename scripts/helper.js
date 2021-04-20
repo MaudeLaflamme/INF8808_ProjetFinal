@@ -6,9 +6,14 @@
  * @param {number} height The desired height
  */
 export function setCanvasSize (width, height) {
-  d3.select('.viz-container').select('svg')
+  d3.select('.viz1-container').select('svg')
     .attr('width', width)
     .attr('height', height)
+    .attr("padding-top", "25px")
+  d3.select('.viz3-container').select('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .attr("padding-top", "25px")
 }
 
 export function setViz3_SVG(margin_left){
@@ -41,4 +46,31 @@ export function setViz3_yScale(margin, height){
   .attr("transform", "translate(" + (margin.left -1) + "," + margin.top + ")")
 
   return yScale
+}
+
+export function write_text(){
+  const viz1_container = d3.select(".viz1-container")
+  .insert("div", ":first-child")
+  .attr("class", "title-text")
+  .append("text")
+  .text("TITRE VIZ 1")
+
+  viz1_container
+  .insert("div", ":first-child")
+  .attr("class", "text-class")
+  .append("text")
+  .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+  
+
+  const viz3_container = d3.select(".viz3-container")
+  .insert("div", ":first-child")
+  .attr("class", "title-text")
+  .append("text")
+  .text("TITRE VIZ 3")
+
+  viz3_container
+  .insert("div", ":first-child")
+  .attr("class", "text-class")
+  .append("text")
+  .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 }

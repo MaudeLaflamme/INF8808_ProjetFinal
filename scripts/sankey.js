@@ -20,7 +20,7 @@ function formatData(data){
 }
 
 function drawNodes(nodes, color){
-    d3.select(".viz3-svg").append("g")
+    d3.select(".viz1-svg").append("g")
                 .attr("stroke", "#000")
                 .selectAll("rect")
                 .data(nodes)
@@ -36,7 +36,7 @@ function drawNodes(nodes, color){
 }
 
 function addLabels(nodes, width, height){
-    d3.select(".viz3-svg").append("g")
+    d3.select(".viz1-svg").append("g")
             .attr("font-family", "sans-serif")
             .attr("font-size", 10)
             .selectAll("text")
@@ -51,7 +51,7 @@ function addLabels(nodes, width, height){
 }
 
 function drawLinks(links){
-    const link = d3.select(".viz3-svg").append("g")
+    const link = d3.select(".viz1-svg").append("g")
                 .attr("fill", "none")
                 .attr("stroke-opacity", 0.5)
                 .selectAll("g")
@@ -70,11 +70,11 @@ function drawLinks(links){
 }
 
 
-export function draw_sankey(){ //(json, color, chart_id, xScale, yScale) {
+export function draw_sankey(color){ //(json, color, chart_id, xScale, yScale) {
 
         const width = 960
         const height = 625
-        const color = d3.scaleOrdinal(d3.schemeCategory10);
+        // const color = d3.scaleOrdinal(d3.schemeCategory10);
         
     
         d3.csv('./data_sankey.csv').then(function (data) {

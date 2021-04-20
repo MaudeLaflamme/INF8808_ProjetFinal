@@ -1,5 +1,5 @@
 
-export const colorScheme = ["#8BD98E", "#E0E0E0", "#639FEF", "#AB80DA", "#E98282", "#ECE86B", "#EB992D"]
+export const colorScheme = ["#8BD98E", "#E0E0E0", "#639FEF", "#AB80DA", "#E98282", "#ECE86B", "#EB992D", "#EC9AF5", "#9af5e0", "#595cf7"]
 
 export const svgSize = {
     width: 960,
