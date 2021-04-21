@@ -22,12 +22,16 @@ export function drawButtons(json_data, color, xScale, yScale){
   .append("rect")
   .attr("width", 100)
   .attr("height", 30)
-  .attr("fill", "#E0E0E0")
+  .attr("fill", d => d == 'interactions'? "#A5A5A5" : "#E0E0E0")
   .on("mouseenter", function () {
     d3.select(this).attr("stroke", "#362023")
   })
   .on("mouseleave", function () {
     d3.select(this).attr("stroke", "#E0E0E0")
+  })
+  .on("click", function () {
+    d3.select(this.parentNode.parentNode).selectAll("rect").attr("fill", "#E0E0E0")
+    d3.select(this).attr("fill", "#A5A5A5")
   })
 
   d3.select(".buttons-container").selectAll("text")
