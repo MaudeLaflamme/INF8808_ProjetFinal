@@ -8,7 +8,7 @@
     "npm": "6.14.1"
   },
   "scripts": {
-    "build": "parcel build ./index.html",
+    "build": "parcel build ./index.html --no-minify",
     "start": "parcel ./index.html --log-level=2 --port=8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
