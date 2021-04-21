@@ -4,12 +4,12 @@
   "description": "Projet final pour le cours INF8808.",
   "main": "index.js",
   "engines": {
-    "node": "10.13.0",
-    "npm": "6.4.1"
+    "node": "10.19.0",
+    "npm": "6.14.1"
   },
   "scripts": {
     "build": "parcel build ./index.html",
-    "start": "parcel ./index.html --log-level=2",
+    "start": "parcel ./index.html --log-level=2 --port=8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Maude Laflamme, Maude Nguyen-The, Elisabeth Fagnan",
