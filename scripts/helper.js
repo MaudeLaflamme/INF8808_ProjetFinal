@@ -22,9 +22,15 @@ export function setViz3_SVG(margin_left){
   .attr("transform", "translate(" + margin_left + ", 0)")
 }
 
+export function setLegendViz3(width, margin_top) {
+  d3.select(".viz3-svg").append("g")
+  .attr("class", "legend-viz3")
+  .attr("transform", "translate(" + width + ", " + margin_top +")")
+}
+
 export function setViz3_xScale(margin, width, height){
   // X scale
-  var xScale = d3.scaleLinear().domain([0, 1]).range([margin.left, width])
+  var xScale = d3.scaleLinear().domain([0, 1]).range([margin.left, width-margin.right/2])
 
   // X axis
   d3.select(".chart-group").append("g")

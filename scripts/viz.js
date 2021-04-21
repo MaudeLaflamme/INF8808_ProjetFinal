@@ -1,4 +1,5 @@
 /** VIZ 3 */
+import { drawLegend } from "./legend.js"
 
 const CHART_TYPE = {interactions: "Interactions", reactions: "Réactions", langues: "Langues"}
 
@@ -48,26 +49,31 @@ export function drawButtons(json_data, color, xScale, yScale){
 
 export function buttonHandler(chart_id, data, color, xScale, yScale){
   drawStackedBar(data, color, chart_id, xScale, yScale)
+  drawLegend(color, d3.select('.legend-viz3'))
 }
 
 
-export function drawStackedBar(json, color, chart_id, xScale, yScale){
-  
-  var data = Object.keys(json[chart_id]).map( key => {
-    var item = json[chart_id][key]["relative"]
-    item["category"] = key
-    if("mean" in json[chart_id][key]) {
-      item["mean"] = json[chart_id][key]["mean"]
+export function drawStackedBar(json, color, chart_id, xScale, yScale) {
+  var subgroups = Object.keys(json[chart_id]["non-media"]["relative"])
+
+  var data = Object.keys(json[chart_id]).map(page_type => {
+    var item = {}
+    Object.keys(json[chart_id][page_type]["relative"]).forEach(key => {
+      item[key] = json[chart_id][page_type]["relative"][key]
+    })
+    item["category"] = page_type
+    if("mean" in json[chart_id][page_type]) {
+      item["mean"] = json[chart_id][page_type]["mean"]
     }
     return item
   }, [])
-  var subgroups = Object.keys(json[chart_id]["non-media"]["relative"])
 
   // Color
   color.domain(subgroups)
 
   // Stacked bar
   var stackedData = d3.stack().keys(subgroups).order(d3.stackOrderDescending)(data)
+
   d3.select(".chart-group").append("g")
   .selectAll("g")
   .data(stackedData)

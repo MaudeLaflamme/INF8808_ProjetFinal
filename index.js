@@ -22,15 +22,21 @@ import * as constants from './scripts/constants.js'
    *   This function builds the graph.
    */
   function build () {
-    var color = d3.scaleOrdinal(constants.colorScheme)
-    sankey.draw_sankey(color)
-    var data = require('./assets/data/stacked_barchart.json')
+    // VIZ 1
+    var colorSankey = d3.scaleOrdinal(constants.colorScheme)
+    sankey.draw_sankey(colorSankey)
+
+    // VIZ 3
+    var colorStacked = d3.scaleOrdinal(constants.colorScheme)
     helper.setViz3_SVG(constants.margin.left)
-    helper.write_text()
+    helper.setLegendViz3(constants.width, constants.margin.top)
     var v3_xScale = helper.setViz3_xScale(constants.margin, constants.width, constants.height)
     var v3_yScale = helper.setViz3_yScale(constants.margin, constants.height)
-    viz.drawButtons(data, color, v3_xScale, v3_yScale)
-    viz.drawStackedBar(data, color, "interactions", v3_xScale, v3_yScale)
-
+    d3.json('./stacked_barchart.json').then(function (data) {
+      viz.drawButtons(data, colorStacked, v3_xScale, v3_yScale)
+      viz.drawStackedBar(data, colorStacked, "interactions", v3_xScale, v3_yScale)
+      legend.drawLegend(colorStacked, d3.select('.legend-viz3'))
+    })    
+    helper.write_text()
   }
 })(d3)
