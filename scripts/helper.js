@@ -10,16 +10,32 @@ export function setCanvasSize (width, height) {
     .attr('width', width)
     .attr('height', height)
     .attr("padding-top", "25px")
+  d3.select('.viz2-container').select('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .attr("padding-top", "25px")
   d3.select('.viz3-container').select('svg')
     .attr('width', width)
     .attr('height', height)
     .attr("padding-top", "25px")
 }
 
+export function setViz2_SVG(margin_left){
+  d3.select(".viz2-svg").append("g")
+  .attr("class", "barchart-group")
+  .attr("transform", "translate(" + margin_left + ", 0)")
+}
+
 export function setViz3_SVG(margin_left){
   d3.select(".viz3-svg").append("g")
   .attr("class", "chart-group")
   .attr("transform", "translate(" + margin_left + ", 0)")
+}
+
+export function setLegendViz2(width, margin_top) {
+  d3.select(".viz2-svg").append("g")
+  .attr("class", "legend-viz2")
+  .attr("transform", "translate(" + width + ", " + margin_top +")")
 }
 
 export function setLegendViz3(width, margin_top) {
@@ -65,8 +81,19 @@ export function write_text(){
   .insert("div", ":first-child")
   .attr("class", "text-class")
   .append("text")
-  .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Hello.")
+  .text("Ce paragraphe introduira brièvement la visualisation ci-bas. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
   
+  const viz2_container = d3.select(".viz2-container")
+  .insert("div", ":first-child")
+  .attr("class", "title-text")
+  .append("text")
+  .text("TITRE VIZ 2")
+
+  viz2_container
+  .insert("div", ":first-child")
+  .attr("class", "text-class")
+  .append("text")
+  .text("Ce paragraphe introduira brièvement la visualisation ci-bas. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 
   const viz3_container = d3.select(".viz3-container")
   .insert("div", ":first-child")
@@ -78,5 +105,5 @@ export function write_text(){
   .insert("div", ":first-child")
   .attr("class", "text-class")
   .append("text")
-  .text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+  .text("Ce paragraphe introduira brièvement la visualisation ci-bas. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
 }
