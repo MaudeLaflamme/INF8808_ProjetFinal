@@ -1,12 +1,11 @@
 function orderPostTypes(data) {
     var subgroups = data.columns.slice(1)
     var counts = data.reduce((post_counts, line) => {
-        var type = line.type
+        var type = line['typePost']
         post_counts[type] = 0
         subgroups.forEach(group => {
             post_counts[type] += parseInt(line[group])
         })
-        if (type == 'others') { post_counts[type] = 0}
         return post_counts
     }, {})
     return Object.keys(counts).sort((a, b) => counts[b]-counts[a])
@@ -63,7 +62,7 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
     .enter()
     .append("g")
       .attr("transform", function(d) {
-          return "translate(" + xScale(d.type) + ",0)"; 
+          return "translate(" + xScale(d['typePost']) + ",0)"; 
         })
     .selectAll("rect")
     .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })

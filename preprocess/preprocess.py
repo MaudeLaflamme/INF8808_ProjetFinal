@@ -3,12 +3,33 @@ import numpy as np
 import json
 from pathlib import Path
 
+videos = ['video', 'live_video', 'live_video_complete', 'live_video_scheduled', 'native_video', 'extra_clip', 'episode']
+links = ['link', 'youtube']
+photos = ['album', 'photo']
+status = ['status']
+
 reactions = ['likes', 'love', 'haha', 'wow', 'triste', 'colere', 'solid']
 interactions = ['commentaires', 'partages', 'reactions']
 
 bin_to_page_type = {
-    "oui": "media",
-    "non": "non-media"
+    "oui": "Page médiatique",
+    "non": "Page non-médiatique"
+}
+
+interactions_to_french = {
+    'commentaires': 'Commentaires',
+    'partages': 'Partages',
+    'reactions': 'Réactions'
+}
+
+reactions_to_french = {
+    "likes": "J'aime",
+    "love": "J'adore",
+    "haha": "Haha",
+    "wow": "Wouah",
+    "triste": "Triste",
+    "colere": "Grrr",
+    "solid": "Solidaire"
 }
 
 project_dir = Path(__file__).parents[1]
@@ -33,6 +54,12 @@ def format_date(df: pd.DataFrame):
     df['date'] = pd.to_datetime(df['date'], infer_datetime_format=True, utc=True).dt.year
 
 
+def format_post_types(df: pd.DataFrame):
+    new_types = ['Vidéo', 'Photo', 'Lien', 'Status']
+    for old, new in zip([videos, photos, links, status], new_types):
+        df['typePost'].replace(to_replace=old, value=new, inplace=True)
+
+
 def get_count_for_top(df, category, to_keep):
     counts = get_counts(df, category)
     other_count = 0
@@ -47,31 +74,25 @@ def get_count_for_top(df, category, to_keep):
     return counts
 
 
-def data_for_clustered_bc(df: pd.DataFrame, output_file=(data_dir/'clustered_barchart.json')):
-    data = {}
-    post_types = get_most_frequent(df, 'typePost', 4)
-    df_by_page_type = df.groupby("media")
-    for page_type in df_by_page_type.groups:
-        page_data = df_by_page_type.get_group(page_type)
-        post_counts = get_count_for_top(page_data, 'typePost', post_types)
+def data_for_clustered_bc(df: pd.DataFrame, output_file=(data_dir/'clustered_barchart.csv')):
+    df_by_page = df[['media', 'typePost', 'interactions']]\
+        .groupby(["media", 'typePost'])\
+        .sum()\
+        .unstack(level=0)
 
-        interaction_counts = page_data[['typePost', 'interactions']].groupby('typePost').sum()
-        other_indices = [i for i in interaction_counts.index.values if i not in post_types]
-        other_counts = interaction_counts.loc[other_indices].sum().rename('others')
-        interaction_counts = interaction_counts.append(other_counts)
-        interaction_counts.drop(index=other_indices, inplace=True)
-        interaction_counts = interaction_counts['interactions'].to_dict()
+    df_by_page.columns = df_by_page.columns.get_level_values(1)
 
-        for post in interaction_counts.keys():
-            interaction_counts[post] /= post_counts[post]
-            interaction_counts[post] = round(interaction_counts[post])
-        data[bin_to_page_type[page_type]] = interaction_counts
+    for page_type in np.unique(df['media']):
+        post_counts = get_counts(df[df['media'] == page_type], 'typePost')
+        for post_type in post_counts.keys():
+            df_by_page.at[post_type, page_type] = df_by_page.at[post_type, page_type]/post_counts[post_type]
 
-    with open(output_file, 'w') as fp:
-        json.dump(data, fp, indent=4)
+    df_by_page.rename(columns=lambda x: bin_to_page_type[x], inplace=True)
+    df_by_page.reset_index(inplace=True)
+    df_by_page.to_csv(output_file, index=False)
 
 
-def get_sum_by_media(df, cols):
+def get_sum_by_media(df, cols, format_dict):
     results = {}
     post_counts = get_counts(df, 'media')
 
@@ -79,7 +100,9 @@ def get_sum_by_media(df, cols):
     counts['post_counts'] = counts.index.map(post_counts)
     counts['total'] = counts[cols].sum(axis=1)
     relative_counts = counts[cols].div(counts.total, axis=0)
+    relative_counts.rename(columns=lambda x: format_dict[x], inplace=True)
     mean_counts = counts[cols].div(counts.post_counts, axis=0).astype(int)
+    mean_counts.rename(columns=lambda x: format_dict[x], inplace=True)
     for page_type in relative_counts.index.values:
         results[bin_to_page_type[page_type]] = {
             "mean": mean_counts.loc[page_type].to_dict(),
@@ -90,9 +113,9 @@ def get_sum_by_media(df, cols):
 
 def data_for_stacked_barchart(df: pd.DataFrame, output_file=(data_dir/'stacked_barchart.json')):
     data = {
-        'interactions': get_sum_by_media(df, interactions),
-        'reactions': get_sum_by_media(df, reactions),
-        'langues': {}
+        'Intéractions': get_sum_by_media(df, interactions, interactions_to_french),
+        'Réactions': get_sum_by_media(df, reactions, reactions_to_french),
+        'Langues': {}
     }
 
     freq_langue = get_most_frequent(df, 'langue', 3)
@@ -102,7 +125,7 @@ def data_for_stacked_barchart(df: pd.DataFrame, output_file=(data_dir/'stacked_b
         langue_count = get_count_for_top(page_data, 'langue', freq_langue)
         total = sum([v for v in langue_count.values()])
         langue_count = {k: v / total for k, v in langue_count.items()}
-        data['langues'][bin_to_page_type[page_type]] = {
+        data['Langues'][bin_to_page_type[page_type]] = {
             'relative': langue_count
         }
 
@@ -113,6 +136,7 @@ def data_for_stacked_barchart(df: pd.DataFrame, output_file=(data_dir/'stacked_b
 if __name__ == '__main__':
     df = pd.read_csv('poly-Facebook-2018-2020.csv')
     format_date(df)
+    format_post_types(df)
     add_reaction_count(df)
     data_for_clustered_bc(df)
     data_for_stacked_barchart(df)

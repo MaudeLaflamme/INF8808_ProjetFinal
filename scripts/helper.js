@@ -59,13 +59,13 @@ export function setViz3_xScale(margin, width, height){
 
 export function setViz3_yScale(margin, height){  
   // Y scale
-  var yScale = d3.scaleBand().domain(["media", "non-media"]).range([margin.bottom, height - margin.top])
+  var yScale = d3.scaleBand().domain(["Page médiatique", "Page non-médiatique"]).range([margin.bottom, height - margin.top])
 
   // Y axis
   d3.select(".chart-group").append("g")
   .attr("class", "y axis")
   .call(d3.axisLeft(yScale))
-  .attr("transform", "translate(" + (margin.left -1) + "," + margin.top + ")")
+  .attr("transform", "translate(" + (margin.left-1) + "," + margin.top + ")")
 
   return yScale
 }

@@ -9,7 +9,7 @@ export function drawButtons(json_data, color, xScale, yScale){
   .attr("transform", "translate(80, 10)")
 
   d3.select(".buttons-container").selectAll("g")
-  .data(Object.keys(CHART_TYPE))
+  .data(Object.keys(json_data))
   .enter()
   .append("g")
   .attr("class", "button")
@@ -35,7 +35,7 @@ export function drawButtons(json_data, color, xScale, yScale){
   })
 
   d3.select(".buttons-container").selectAll("text")
-  .data(Object.keys(CHART_TYPE))
+  .data(Object.keys(json_data))
   .enter()
   .append("text")
   .attr("x", (d,i) => {
@@ -46,7 +46,7 @@ export function drawButtons(json_data, color, xScale, yScale){
   .attr("text-anchor", "middle")
   .attr("dominant-baseline", "middle")
   .attr("class", "button-text")
-  .text(d => { return CHART_TYPE[d] })
+  .text(d => d)
   .attr("font-size", "10px")
   .attr("fill", "#0000000")
 }
@@ -58,7 +58,7 @@ export function buttonHandler(chart_id, data, color, xScale, yScale){
 
 
 export function drawStackedBar(json, color, chart_id, xScale, yScale) {
-  var subgroups = Object.keys(json[chart_id]["non-media"]["relative"])
+  var subgroups = Object.keys(json[chart_id]["Page non-médiatique"]["relative"])
 
   var data = Object.keys(json[chart_id]).map(page_type => {
     var item = {}
@@ -91,6 +91,6 @@ export function drawStackedBar(json, color, chart_id, xScale, yScale) {
   .attr("height", 60)
   .attr("transform", "translate(0," + 90 + ")" )
   .transition()
-  .duration(500)
+  .duration(350)
   .attr("width", d => xScale(d[1]) - xScale(d[0]))
 }

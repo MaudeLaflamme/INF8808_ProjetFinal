@@ -48,7 +48,7 @@ import * as constants from './scripts/constants.js'
     var v3_yScale = helper.setViz3_yScale(constants.margin, constants.height)
     d3.json('./stacked_barchart.json').then(function (data) {
       viz.drawButtons(data, colorStacked, v3_xScale, v3_yScale)
-      viz.drawStackedBar(data, colorStacked, "interactions", v3_xScale, v3_yScale)
+      viz.drawStackedBar(data, colorStacked, "Intéractions", v3_xScale, v3_yScale)
       legend.drawLegend(colorStacked, d3.select('.legend-viz3'))
     })    
     helper.write_text()
