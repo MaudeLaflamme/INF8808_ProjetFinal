@@ -22,6 +22,17 @@ main {
     pointer-events: none;
 }
 
+.d3-tip {
+    line-height: 1;
+    padding: 5px;
+    background: #fff;
+    color: #000;
+    border-radius: 2px;
+    pointer-events: none;
+    font-size: 12px;
+    max-width: 200px;
+}
+
 button {
     padding: 10px 30px;
     color: #000;
@@ -78,4 +89,11 @@ button:hover, button:active {
     font-family: 'Open Sans Condensed';
     font-size: 16px;
     padding-bottom: 25px;
+}
+
+#tooltip-title {
+    font-family: 'Open Sans Condensed';
+    font-weight: normal;
+    font-size: 18px;
+    text-decoration: underline;
 }

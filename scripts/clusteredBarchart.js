@@ -51,7 +51,7 @@ export function setYScale(data, margin, height) {
     return yScale
 }
 
-export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
+export function drawChart(data, color, xScale, subgroupScale, yScale, height, tip) {
     console.log(data)
     var subgroups = data.columns.slice(1)
     color.domain(subgroups)
@@ -61,15 +61,32 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
     .data(data)
     .enter()
     .append("g")
-      .attr("transform", function(d) {
-          return "translate(" + xScale(d['typePost']) + ",0)"; 
-        })
+    .attr("transform", function(d) {
+        return "translate(" + xScale(d['typePost']) + ",0)"; 
+    })
+    .attr("class", "subgroups")
     .selectAll("rect")
-    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key], subgroup: d['typePost']}; }); })
     .enter().append("rect")
       .attr("x", function(d) { return subgroupScale(d.key); })
       .attr("y", function(d) { return yScale(d.value); })
       .attr("width", subgroupScale.bandwidth())
       .attr("height", function(d) { return height - yScale(d.value); })
-      .attr("fill", function(d) { return color(d.key); });
+      .attr("fill", function(d) { return color(d.key); })
+    //   .on("mouseover", function(d) {
+    //       tip.show(d, this)
+    //   })
+    //   .on("mouseout", tip.hide)
+
+    d3.selectAll('.subgroups')
+    .selectAll('text')
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .enter()
+    .append('text')
+    .text(d => d.value)
+    .attr('x', d => subgroupScale(d.key)+subgroupScale.bandwidth()/2)
+    .attr('y', d => yScale(d.value) + 15)
+    .attr('text-anchor', 'middle')
+    .attr("font-size", "14px")
+    .attr("fill", "white")
 }
