@@ -39,6 +39,10 @@ button:hover, button:active {
 	background-color:#f6f6f6;
 }
 
+.button-text {
+    pointer-events: none;
+}
+
 .viz1-container{
     display: flex;
     flex-direction: column;

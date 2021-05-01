@@ -11,7 +11,7 @@ export function drawLegend (colorScale, g) {
   // For help, see : https://d3-legend.susielu.com/
    
   var legendOrdinal = legendColor()
-  .shape("path", d3.symbol().type(d3.symbolCircle).size(150)())
+  .shape("path", d3.symbol().type(d3.symbolSquare).size(350)())
   .title('Légende')
   .scale(colorScale);
 

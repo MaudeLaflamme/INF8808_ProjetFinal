@@ -41,11 +41,13 @@ import * as constants from './scripts/constants.js'
     })
 
     // VIZ 3
+    const viz3_height = constants.svgSize.height - 125 - constants.margin.bottom - constants.margin.top
+    const viz3_width = constants.svgSize.width - constants.margin.left - constants.margin.right
     var colorStacked = d3.scaleOrdinal(constants.colorScheme)
-    helper.setViz3_SVG(constants.margin.left)
-    helper.setLegendViz3(constants.width, constants.margin.top)
-    var v3_xScale = helper.setViz3_xScale(constants.margin, constants.width, constants.height)
-    var v3_yScale = helper.setViz3_yScale(constants.margin, constants.height)
+    helper.setViz3_SVG(constants.margin.left, constants.margin.top)
+    helper.setLegendViz3(viz3_width, constants.margin.top)
+    var v3_xScale = helper.setViz3_xScale(constants.margin, viz3_width, viz3_height)
+    var v3_yScale = helper.setViz3_yScale(constants.margin, viz3_height)
     d3.json('./stacked_barchart.json').then(function (data) {
       viz.drawButtons(data, colorStacked, v3_xScale, v3_yScale)
       viz.drawStackedBar(data, colorStacked, "Intéractions", v3_xScale, v3_yScale)
