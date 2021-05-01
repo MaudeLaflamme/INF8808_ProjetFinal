@@ -41,7 +41,7 @@ export function setSubgroupScale(data, xScale) {
 export function setYScale(data, margin, height) {
     var yScale = d3.scaleLinear()
     .domain([0, 5250])
-    .range([height, 0])
+    .range([height, margin.top])
 
     d3.select(".barchart-group").append("g")
     .attr("class", "y axis")

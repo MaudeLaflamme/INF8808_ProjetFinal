@@ -79,16 +79,15 @@ button:hover, button:active {
     padding-top: 25px;
 }
 
-.title-text {
-    font-family: Oswald;
-    font-size: 24px;
-    font-weight: bold;
+.text-div {
+    width: 100%;
+    text-align: left;
+    line-height: 1;
 }
 
 .text-class {
-    font-family: 'Open Sans Condensed';
     font-size: 16px;
-    padding-bottom: 25px;
+    text-align: left;
 }
 
 #tooltip-title {
