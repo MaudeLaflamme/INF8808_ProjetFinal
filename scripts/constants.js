@@ -21,7 +21,12 @@ export const text = [
                               incluent les différences du comportement des usagers ainsi que du contenu proposé par ces deux types de pages.<p>"},
   {select: "#viz2-text", text: "<h3>Nombre moyen d'interactions par type de publications</h1><p class='text-class'>La visualisation ci-dessous permet \
                               de comparer le nombre moyen d'interraction par type de publications (images, vidéos, statuts ou liens) selon les deux \
-                              types de pages.</p>"},
+                              types de pages.</p><p class='text-class'>On remarque que les pages non-médiatiques reçoivent beaucoup plus d'interactions \
+                              que les pages de médias officiels, et ce, pour tous types de publications confondus. On peut également voir que le type de \
+                              publication <i>Vidéo</i> est celui qui provoque le plus d'interactions, surtout pour les pages non-médiatiques pour lesquelles \
+                              il en entraîne plus du double de celles médiatiques. Une autre observation notable est que la seule catégorie de publication \
+                              pour laquelle les pages médiatiques se rapprochent des pages non-médiatiques en termes d'interactions est celle des liens vers \
+                              des ressources externes à Facebook.</p>"},
   {select: "#viz3-text", text: "<h3>Stacked</h1><p class='text-class'>blabla</p>"},
   {select: "#conclusion", text: "<h2>Données et méthodologie</h2><p class='text-class'>blabla</p>"}
 ]
