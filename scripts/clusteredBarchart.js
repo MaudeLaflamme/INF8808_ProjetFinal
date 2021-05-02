@@ -14,7 +14,6 @@ function orderPostTypes(data) {
 
 export function setXScale(data, margin, width, height) {
     var groups = orderPostTypes(data)
-    console.log(groups)
     
     var xScale = d3.scaleBand()
       .domain(groups)
@@ -52,7 +51,6 @@ export function setYScale(data, margin, height) {
 }
 
 export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
-    console.log(data)
     var subgroups = data.columns.slice(1)
     color.domain(subgroups)
     

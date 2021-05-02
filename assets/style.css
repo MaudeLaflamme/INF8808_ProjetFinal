@@ -83,3 +83,17 @@ button:hover, button:active {
     font-size: 16px;
     padding-bottom: 25px;
 }
+
+.d3-tip {
+    line-height: 1;
+    padding: 12px;
+    background: #a5a2a29a;
+    color: #fff;
+    border-radius: 2px;
+    pointer-events: none;
+  }
+
+.tooltip-value {
+    font-weight: normal;
+    font-size: 12px;
+}

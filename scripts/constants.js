@@ -8,3 +8,4 @@ export const svgSize = {
 
 export const margin = {top: 20, right:160, bottom:35, left:35}
 export const width = 960 - margin.left - margin.right
+export const stackedHeight = 500

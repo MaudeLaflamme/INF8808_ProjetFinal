@@ -1,13 +1,14 @@
 'use strict'
 
 import * as helper from './scripts/helper.js'
-import * as viz from './scripts/viz.js'
+import * as stacked from './scripts/stackedBarchart.js'
 import * as clustered from './scripts/clusteredBarchart.js'
 import * as sankey from './scripts/sankey.js'
 import * as legend from './scripts/legend.js'
-import * as panel from './scripts/panel.js'
 import * as constants from './scripts/constants.js'
+import * as tooltip from './scripts/tooltip.js'
 
+import d3Tip from 'd3-tip'
 /**
  * @file This file is the entry-point for the code for the final project of the course INF8808.
  * @author Maude Laflamme, Maude Nguyen-The, Elisabeth Fagnan
@@ -41,16 +42,18 @@ import * as constants from './scripts/constants.js'
     })
 
     // VIZ 3
-    const viz3_height = constants.svgSize.height - 125 - constants.margin.bottom - constants.margin.top
-    const viz3_width = constants.svgSize.width - constants.margin.left - constants.margin.right
     var colorStacked = d3.scaleOrdinal(constants.colorScheme)
+    const tip_v3 = d3Tip().attr('class', 'd3-tip').html(function (d) { return tooltip.getContents(d) })
+    d3.select('.viz3-svg').call(tip_v3)
+
     helper.setViz3_SVG(constants.margin.left, constants.margin.top)
-    helper.setLegendViz3(viz3_width, constants.margin.top)
-    var v3_xScale = helper.setViz3_xScale(constants.margin, viz3_width, viz3_height)
-    var v3_yScale = helper.setViz3_yScale(constants.margin, viz3_height)
+    helper.setLegendViz3(constants.width, constants.margin)
+    var v3_xScale = stacked.setXScale(constants.margin, constants.width, constants.stackedHeight)
+    var v3_yScale = stacked.setYScale(constants.margin, constants.stackedHeight)
     d3.json('./stacked_barchart.json').then(function (data) {
-      viz.drawButtons(data, colorStacked, v3_xScale, v3_yScale)
-      viz.drawStackedBar(data, colorStacked, "Intéractions", v3_xScale, v3_yScale)
+      data = stacked.translateLanguages(data)
+      stacked.drawButtons(data, colorStacked, v3_xScale, v3_yScale, tip_v3)
+      stacked.drawStackedBar(data, colorStacked, "Intéractions", v3_xScale, v3_yScale, tip_v3)
       legend.drawLegend(colorStacked, d3.select('.legend-viz3'))
     })    
     helper.write_text()

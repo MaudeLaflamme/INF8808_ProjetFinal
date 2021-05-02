@@ -38,36 +38,10 @@ export function setLegendViz2(width, margin_top) {
   .attr("transform", "translate(" + width + ", " + margin_top +")")
 }
 
-export function setLegendViz3(width, margin_top) {
+export function setLegendViz3(width, margin) {
   d3.select(".viz3-svg").append("g")
   .attr("class", "legend-viz3")
-  .attr("transform", "translate(" + width + ", " + margin_top +")")
-}
-
-export function setViz3_xScale(margin, width, height){
-  // X scale
-  var xScale = d3.scaleLinear().domain([0, 1]).range([margin.left, width-margin.right/2])
-
-  // X axis
-  d3.select(".stackchart-group").append("g")
-  .attr("class", "x axis")
-  .call(d3.axisBottom(xScale).ticks(5).tickFormat(d3.format(".0%")))
-  .attr("transform", "translate(-1, " + height + ")")
-
-  return xScale
-}
-
-export function setViz3_yScale(margin, height){  
-  // Y scale
-  var yScale = d3.scaleBand().domain(["Page médiatique", "Page non-médiatique"]).range([margin.bottom, height])
-
-  // Y axis
-  d3.select(".stackchart-group").append("g")
-  .attr("class", "y axis")
-  .call(d3.axisLeft(yScale))
-  .attr("transform", "translate(" + (margin.left-1) + ",0 )")
-
-  return yScale
+  .attr("transform", "translate(" + (width - margin.left +20) + ", " + margin.top +")")
 }
 
 export function write_text(){
