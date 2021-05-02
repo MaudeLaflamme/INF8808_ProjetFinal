@@ -24,8 +24,6 @@ export function setXScale(data, margin, width, height) {
       .attr("class", "x axis")
       .call(d3.axisBottom(xScale).tickSize(0))
       .attr("transform", "translate(-1, " + (height-margin.bottom) + ")")
-    console.log(height)
-    console.log(height-margin.top)
     return xScale
 }
 

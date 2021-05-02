@@ -9,10 +9,18 @@ import * as constant from "./constants.js"
 export function setCanvasSize (width, height) {
   const containers = ['.viz1-container', '.viz2-container', '.viz3-container']
   containers.forEach(function(container) {
-    d3.select(container).select('svg')
-    .attr('width', width)
-    .attr('height', height-125)
-    .attr("padding-top", "25px")
+    if(container != ".viz3-container"){
+      d3.select(container).select('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr("padding-top", "25px")
+    }
+    else {
+      d3.select(container).select('svg')
+      .attr('width', width)
+      .attr('height', height-125)
+      .attr("padding-top", "25px")
+    }
   })
 }
 
@@ -22,7 +30,7 @@ export function setViz2_SVG(margin_left){
   .attr("transform", "translate(" + margin_left + ", 0)")
 }
 
-export function setViz3_SVG(margin_left, margin_top){
+export function setViz3_SVG(margin_top){
   d3.select(".viz3-svg").append("g")
   .attr("class", "stackchart-group")
   .attr("transform", "translate(75," + margin_top + ")")
