@@ -35,16 +35,13 @@ import d3Tip from 'd3-tip'
     var colorClustered = d3.scaleOrdinal(constants.colorScheme)
     helper.setViz2_SVG(constants.margin.left)
 
-    const tip_v2 = d3Tip().attr('class', 'd3-tip').html(function (d) { return tooltip.getContents(d) })
-    d3.select('.viz2-svg').call(tip_v2)
-
     helper.setLegendViz2(constants.width, constants.margin.top)
 
     d3.csv('./clustered_barchart.csv').then(function(data) {
-      var v2_xScale = clustered.setXScale(data, constants.margin, constants.width, viz2_height)
-      var v2_yScale = clustered.setYScale(data, constants.margin, viz2_height)
+      var v2_xScale = clustered.setXScale(data, constants.margin, constants.width, constants.svgSize.height)
+      var v2_yScale = clustered.setYScale(data, constants.margin, constants.svgSize.height)
       var scaleSubgroups = clustered.setSubgroupScale(data, v2_xScale)
-      clustered.drawChart(data, colorClustered, v2_xScale, scaleSubgroups, v2_yScale, viz2_height, tip_v2)
+      clustered.drawChart(data, colorClustered, v2_xScale, scaleSubgroups, v2_yScale, constants.svgSize.height, constants.margin)
       legend.drawLegend(colorClustered, d3.select('.legend-viz2'))
     })
 

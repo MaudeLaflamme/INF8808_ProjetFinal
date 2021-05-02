@@ -24,8 +24,9 @@ export function setXScale(data, margin, width, height) {
     d3.select(".barchart-group").append("g")
       .attr("class", "x axis")
       .call(d3.axisBottom(xScale).tickSize(0))
-      .attr("transform", "translate(-1, " + height + ")")
-    
+      .attr("transform", "translate(-1, " + (height-margin.bottom) + ")")
+    console.log(height)
+    console.log(height-margin.top)
     return xScale
 }
 
@@ -39,9 +40,13 @@ export function setSubgroupScale(data, xScale) {
 }
 
 export function setYScale(data, margin, height) {
+    var max = d3.max([d3.max(data, d => parseInt(d['Page médiatique'])), 
+                        d3.max(data, d => parseInt(d["Page non-médiatique"]))])
+    max = Math.round(max/1000)*1000
+
     var yScale = d3.scaleLinear()
-    .domain([0, 5250])
-    .range([height, margin.top])
+    .domain([0, max])
+    .range([height-margin.bottom, margin.top])
 
     d3.select(".barchart-group").append("g")
     .attr("class", "y axis")
@@ -51,8 +56,7 @@ export function setYScale(data, margin, height) {
     return yScale
 }
 
-export function drawChart(data, color, xScale, subgroupScale, yScale, height, tip) {
-    console.log(data)
+export function drawChart(data, color, xScale, subgroupScale, yScale, height, margin) {
     var subgroups = data.columns.slice(1)
     color.domain(subgroups)
     
@@ -71,12 +75,8 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height, ti
       .attr("x", function(d) { return subgroupScale(d.key); })
       .attr("y", function(d) { return yScale(d.value); })
       .attr("width", subgroupScale.bandwidth())
-      .attr("height", function(d) { return height - yScale(d.value); })
+      .attr("height", function(d) { return height - margin.bottom - yScale(d.value); })
       .attr("fill", function(d) { return color(d.key); })
-    //   .on("mouseover", function(d) {
-    //       tip.show(d, this)
-    //   })
-    //   .on("mouseout", tip.hide)
 
     d3.selectAll('.subgroups')
     .selectAll('text')
