@@ -102,3 +102,9 @@ button:hover, button:active {
     font-size: 16px;
     font-weight: bold;
 }
+
+.sankey-columns-title {
+    font-family: Oswald;
+    font-size: 16px;
+    font-weight: bold;
+}
