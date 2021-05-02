@@ -7,18 +7,13 @@ import * as constant from "./constants.js"
  * @param {number} height The desired height
  */
 export function setCanvasSize (width, height) {
-  d3.select('.viz1-container').select('svg')
+  const containers = ['.viz1-container', '.viz2-container', '.viz3-container']
+  containers.forEach(function(container) {
+    d3.select(container).select('svg')
     .attr('width', width)
     .attr('height', height)
     .attr("padding-top", "25px")
-  d3.select('.viz2-container').select('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .attr("padding-top", "25px")
-  d3.select('.viz3-container').select('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .attr("padding-top", "25px")
+  })
 }
 
 export function setViz2_SVG(margin_left){
