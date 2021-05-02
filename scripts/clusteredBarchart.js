@@ -23,8 +23,9 @@ export function setXScale(data, margin, width, height) {
     d3.select(".barchart-group").append("g")
       .attr("class", "x axis")
       .call(d3.axisBottom(xScale).tickSize(0))
-      .attr("transform", "translate(-1, " + height + ")")
-    
+      .attr("transform", "translate(-1, " + (height-margin.bottom) + ")")
+    console.log(height)
+    console.log(height-margin.top)
     return xScale
 }
 
@@ -38,9 +39,13 @@ export function setSubgroupScale(data, xScale) {
 }
 
 export function setYScale(data, margin, height) {
+    var max = d3.max([d3.max(data, d => parseInt(d['Page médiatique'])), 
+                        d3.max(data, d => parseInt(d["Page non-médiatique"]))])
+    max = Math.round(max/1000)*1000
+
     var yScale = d3.scaleLinear()
-    .domain([0, 5250])
-    .range([height, 0])
+    .domain([0, max])
+    .range([height-margin.bottom, margin.top])
 
     d3.select(".barchart-group").append("g")
     .attr("class", "y axis")
@@ -50,7 +55,7 @@ export function setYScale(data, margin, height) {
     return yScale
 }
 
-export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
+export function drawChart(data, color, xScale, subgroupScale, yScale, height, margin) {
     var subgroups = data.columns.slice(1)
     color.domain(subgroups)
     
@@ -59,15 +64,28 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height) {
     .data(data)
     .enter()
     .append("g")
-      .attr("transform", function(d) {
-          return "translate(" + xScale(d['typePost']) + ",0)"; 
-        })
+    .attr("transform", function(d) {
+        return "translate(" + xScale(d['typePost']) + ",0)"; 
+    })
+    .attr("class", "subgroups")
     .selectAll("rect")
-    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key], subgroup: d['typePost']}; }); })
     .enter().append("rect")
       .attr("x", function(d) { return subgroupScale(d.key); })
       .attr("y", function(d) { return yScale(d.value); })
       .attr("width", subgroupScale.bandwidth())
-      .attr("height", function(d) { return height - yScale(d.value); })
-      .attr("fill", function(d) { return color(d.key); });
+      .attr("height", function(d) { return height - margin.bottom - yScale(d.value); })
+      .attr("fill", function(d) { return color(d.key); })
+
+    d3.selectAll('.subgroups')
+    .selectAll('text')
+    .data(function(d) { return subgroups.map(function(key) { return {key: key, value: d[key]}; }); })
+    .enter()
+    .append('text')
+    .text(d => d.value)
+    .attr('x', d => subgroupScale(d.key)+subgroupScale.bandwidth()/2)
+    .attr('y', d => yScale(d.value) + 15)
+    .attr('text-anchor', 'middle')
+    .attr("font-size", "14px")
+    .attr("fill", "white")
 }

@@ -29,15 +29,16 @@ import d3Tip from 'd3-tip'
     sankey.draw_sankey(colorSankey)
 
     //VIZ 2
-    const viz2_height = constants.svgSize.height - constants.margin.bottom
     var colorClustered = d3.scaleOrdinal(constants.colorScheme)
     helper.setViz2_SVG(constants.margin.left)
+
     helper.setLegendViz2(constants.width, constants.margin.top)
+
     d3.csv('./clustered_barchart.csv').then(function(data) {
-      var v2_xScale = clustered.setXScale(data, constants.margin, constants.width, viz2_height)
-      var v2_yScale = clustered.setYScale(data, constants.margin, viz2_height)
+      var v2_xScale = clustered.setXScale(data, constants.margin, constants.width, constants.svgSize.height)
+      var v2_yScale = clustered.setYScale(data, constants.margin, constants.svgSize.height)
       var scaleSubgroups = clustered.setSubgroupScale(data, v2_xScale)
-      clustered.drawChart(data, colorClustered, v2_xScale, scaleSubgroups, v2_yScale, viz2_height)
+      clustered.drawChart(data, colorClustered, v2_xScale, scaleSubgroups, v2_yScale, constants.svgSize.height, constants.margin)
       legend.drawLegend(colorClustered, d3.select('.legend-viz2'))
     })
 
