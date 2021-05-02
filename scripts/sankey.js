@@ -46,39 +46,22 @@ function formatData(data,width,height){
         sankeys[key] = sankey(s)
     })
 
-    // console.log(links)
-    // const sankey = computeSankey(width,height)
-    // let data_sankey = []
-    // Object.keys(links).forEach(function(key) {
-    //     console.log(links[key])
-    //     const nodes = links[key].nodes
-    //     const links = links[key].links
-    //     const s = {nodes,links}
-    //     console.log(s)
-    //     data_sankey[key] = sankey(s)
-    // })
-
-
-    console.log(sankeys)
-    // const nodes = Array.from(new Set(links.Principal.flatMap(l => [l.source, l.target])), name => ({name, category: name.replace(/ .*/, "")}));
-    
-    return sankeys//{'node': nodes, 'links' : links}
+ 
+    return sankeys
 }
 
-// function draw((data, selectedNode, color, width, height))
 
 function drawSelectedSankey(data, selectedNode, color, width, height) {
-    // if(data[selectedNode]){
-        drawNodes(data, data[selectedNode].nodes,color, width, height)
-        drawLinks(data[selectedNode].links, color)
-        addLabels(data[selectedNode].nodes, width, height)
+    drawNodes(data, data[selectedNode].nodes,color, width, height)
+    drawLinks(data[selectedNode].links, color)
+    addLabels(data[selectedNode].nodes, width, height)
 
-        if(selectedNode != 'Principal'){
-            d3.selectAll('.link')
-            .style("stroke", d => ((selectedNode != d.source.name) && (d.source.name != 'Réactions')) ? '#aaa' : color(selectedNode))
-            .attr("stroke-opacity", d => ((selectedNode != d.source.name) && (d.source.name != 'Réactions')) ? '0.5' : '1')
+    if(selectedNode != 'Principal'){
+        d3.selectAll('.link')
+        .style("stroke", d => ((selectedNode != d.source.name) && (d.source.name != 'Réactions')) ? '#aaa' : color(selectedNode))
+        .attr("stroke-opacity", d => ((selectedNode != d.source.name) && (d.source.name != 'Réactions')) ? '0.5' : '1')
 
-        }
+    }
         
 }
 
@@ -115,14 +98,14 @@ function focusLink(data, selectedNode, color, width, height){
 function addLabels(nodes, width, height){
     const react = ["likes", "Love", "Haha", "Wow", "Triste", "Colere", "Solid"]
     d3.select(".viz1-svg").append("g")
-            .attr("class", "sankey-label")//.attr("font-family", "sans-serif").attr("font-size", 10)
+            .attr("class", "sankey-label")
             .selectAll("text")
             .data(nodes)
             .join("text")
             .attr("x", d => d.x0 + (d.x1- d.x0)/2)
             .attr("y", d => (d.y1 + d.y0) / 2)
             .attr("dy", "0.35em")
-            .attr("text-anchor", 'middle')//d => d.x0 < width / 2 ? "start" : "end")
+            .attr("text-anchor", 'middle')
             .text(d => react.includes(d.name)? "": d.name);
     
     addIcons(nodes,width,height)
@@ -132,7 +115,7 @@ function addLabels(nodes, width, height){
 function addIcons(nodes, width, height){
     const react = ["likes", "Love", "Haha", "Wow", "Triste", "Colere", "Solid"]
     d3.select(".viz1-svg").append("g")
-            .attr("class", "sankey-label")//.attr("font-family", "sans-serif").attr("font-size", 10)
+            .attr("class", "sankey-label")
             .selectAll("text")
             .data(nodes)
             .join("image")
@@ -158,7 +141,7 @@ function drawLinks(links,color){
     link.append("path")
         .attr("class", "link")
         .attr("d", d3.sankeyLinkHorizontal())
-        .attr("stroke", d => color(d.source.category === undefined ? d.source.name : d.source.category))//"#aaa")
+        .attr("stroke", d => color(d.source.category === undefined ? d.source.name : d.source.category))
         .attr("stroke-width", d => Math.max(1, d.width))
         .transition()
         .duration(350);
@@ -177,7 +160,6 @@ export function draw_sankey(color){
             
             drawSelectedSankey(data, 'Principal', color, width, height)
             
-        
         })
 
 }
