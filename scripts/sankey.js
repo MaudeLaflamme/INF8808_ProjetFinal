@@ -12,7 +12,7 @@ function computeSankey(sankeyWidth,height){
     });
 }
 
-function formatData(data,width,height){
+export function formatData(data,width,height){
     const data_sankeys = data.reduce(function (allLinks, element){
         const link = {'source': element.source, 'target': element.target, 'value': element.value}
         if (!(element.diagram in allLinks)) {
@@ -99,7 +99,7 @@ function addColumnsTitle(data, nodeWidth){
             .text(d => d.titre);
 }
 
-function drawSelectedSankey(data, selectedNode, color, width, height) {
+export function drawSelectedSankey(data, selectedNode, color, width, height) {
     const nodes =["Réactions","Partages","Commentaires","J'aime", "J'adore", "Haha", "Wouah", "Triste", "Grrr", "Solidaire"]
 
     drawNodes(data, data[selectedNode].nodes,color, width, height)
@@ -165,14 +165,14 @@ function addLabels(columns, width, height){
                 .attr("text-anchor", 'middle')
                 .text(d => d.name)
         } else {
-            addIcons(c.nodes,width,height)
+            addIcons(c.nodes)
         }
     })
    
 }
 
 
-function addIcons(nodes, width, height){
+function addIcons(nodes){
     d3.select(".viz1-svg").append("g")
             .attr("class", "sankey-label")
             .selectAll("text")
@@ -207,18 +207,4 @@ function drawLinks(links,color){
       
     link.append("title")
         .text(d => `${d.source.name} → ${d.target.name}`);
-}
-
-
-export function draw_sankey(color){ 
-        const width = 930
-        const height = 625
-        d3.csv('./data_sankey.csv').then(function (data) {
-            
-            data = formatData(data,width,height)
-            
-            drawSelectedSankey(data, 'Principal', color, width, height)
-            
-        })
-
 }

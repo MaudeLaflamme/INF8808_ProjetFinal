@@ -1,6 +1,19 @@
 /** VIZ 3 */
 import {drawLegend } from "./legend.js"
 
+
+export function setSVG(margin_top){
+  d3.select(".viz3-svg").append("g")
+  .attr("class", "stackchart-group")
+  .attr("transform", "translate(75," + margin_top + ")")
+}
+
+export function setLegend(width, margin) {
+  d3.select(".viz3-svg").append("g")
+  .attr("class", "legend-viz3")
+  .attr("transform", "translate(" + (width - margin.left +20) + ", " + margin.top +")")
+}
+
 export function setXScale(margin, width, height){
   // X scale
   const widthMinusMargins = width - margin.left

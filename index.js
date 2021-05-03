@@ -26,13 +26,16 @@ import d3Tip from 'd3-tip'
   function build () {
     // VIZ 1
     var colorSankey = d3.scaleOrdinal(constants.colorScheme)
-    sankey.draw_sankey(colorSankey)
+    d3.csv('./data_sankey.csv').then(function (data) {
+      data = sankey.formatData(data, constants.svgSize.width, constants.svgSize.height)
+      sankey.drawSelectedSankey(data, 'Principal', colorSankey, constants.svgSize.width, constants.svgSize.height)
+      
+    })
 
     //VIZ 2
     var colorClustered = d3.scaleOrdinal(constants.colorScheme)
-    helper.setViz2_SVG(constants.margin.left)
-
-    helper.setLegendViz2(constants.width, constants.margin.top)
+    clustered.setSVG(constants.margin.left)
+    clustered.setLegend(constants.width, constants.margin.top)
 
     d3.csv('./clustered_barchart.csv').then(function(data) {
       var v2_xScale = clustered.setXScale(data, constants.margin, constants.width, constants.svgSize.height)
@@ -44,11 +47,12 @@ import d3Tip from 'd3-tip'
 
     // VIZ 3
     var colorStacked = d3.scaleOrdinal(constants.colorScheme)
+    
     const tip_v3 = d3Tip().attr('class', 'd3-tip').html(function (d) { return tooltip.getContents(d) })
     d3.select('.viz3-svg').call(tip_v3)
 
-    helper.setViz3_SVG(constants.margin.left, constants.margin.top)
-    helper.setLegendViz3(constants.width, constants.margin)
+    stacked.setSVG(constants.margin.left, constants.margin.top)
+    stacked.setLegend(constants.width, constants.margin)
     var v3_xScale = stacked.setXScale(constants.margin, constants.width, constants.stackedHeight)
     var v3_yScale = stacked.setYScale(constants.margin, constants.stackedHeight)
     d3.json('./stacked_barchart.json').then(function (data) {

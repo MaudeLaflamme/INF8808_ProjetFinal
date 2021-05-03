@@ -12,6 +12,18 @@ function orderPostTypes(data) {
 }
 
 
+export function setSVG(margin_left){
+    d3.select(".viz2-svg").append("g")
+    .attr("class", "barchart-group")
+    .attr("transform", "translate(" + margin_left + ", 0)")
+}  
+
+export function setLegend(width, margin_top) {
+    d3.select(".viz2-svg").append("g")
+    .attr("class", "legend-viz2")
+    .attr("transform", "translate(" + width + ", " + margin_top +")")
+}
+
 export function setXScale(data, margin, width, height) {
     var groups = orderPostTypes(data)
     
@@ -85,5 +97,5 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height, ma
     .attr('y', d => yScale(d.value) + 15)
     .attr('text-anchor', 'middle')
     .attr("font-size", "14px")
-    .attr("fill", "white")
+    .attr("fill", "black")
 }
