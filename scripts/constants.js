@@ -26,8 +26,8 @@ export const text = [
   {select: "#section1", text: "<h2>Exploration du comportement des utilisateurs</h2><p class='text-class'>Cette sous-section explore les comportements des \
                                     utilisateurs en fonction du type de contenu proposé.\</p>"},
   {select: "#viz1-text", text: "<h3>Réactions et interactions des utilisateurs selon le type de publication</h1><p class='text-class'>La visualisation suivante \
-                                    permet de voir comment sont distribuées les différents types d'interactions (commentaires, partages ou réactions) ainsi que \
-                                    les différentes réactions selon le type de publication. </br> On observe que la <i>Vidéo</i> est le type de publication qui suscite \
+                                    permet de voir comment sont distribués les différents types d'interactions (commentaires, partages ou réactions) ainsi que \
+                                    les différentes réactions selon le type de publication. On observe que la <i>Vidéo</i> est le type de publication qui suscite \
                                     le plus d’interactions de la part des utilisateurs. Les réactions constituent un peu plus du tiers des interactions recensées. \
                                     De plus, quel qu’il soit le type de publication la réaction <i>J’aime</i> est la plus utilisée, tandis que la réaction <i>Solidaire</i> n'est que très rarement utilisée.</p>"},
   {select: "#section2", text: "<h2>Comparaison entre page médiatiques et non-médiatiques</h2><p class='text-class'>Dans cette sous-section, \
