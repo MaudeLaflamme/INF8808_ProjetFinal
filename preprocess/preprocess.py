@@ -133,6 +133,46 @@ def data_for_stacked_barchart(df: pd.DataFrame, output_file=(data_dir/'stacked_b
         json.dump(data, fp, indent=4)
 
 
+def data_for_sankey(df: pd.DataFrame, output_file=(data_dir/"data_sankey.csv")):
+    group_by_interactions = df[['typePost'] + interactions + reactions] \
+        .groupby('typePost') \
+        .sum()
+
+    group_by_interactions.reset_index(inplace=True)
+    final_df = pd.DataFrame(columns=['source', 'target', 'value', 'diagram', 'sub'])
+    post_counts = get_counts(df, 'typePost')
+    for i in group_by_interactions.index:
+        post_type = group_by_interactions['typePost'][i]
+        group_by_interactions.loc[i, interactions+reactions] = group_by_interactions.loc[i, interactions+reactions]\
+            .apply(lambda x: x/post_counts[post_type]).astype(int)
+        for col in interactions:
+            col_formatted = interactions_to_french[col]
+            final_df = final_df.append({'source': post_type,
+                                        'target': col_formatted,
+                                        'value': group_by_interactions.loc[i, col],
+                                        'diagram': 'Principal',
+                                        'sub': False}, ignore_index=True)
+        for col in reactions:
+            col_formatted = reactions_to_french[col]
+            final_df = final_df.append({'source': 'Réactions',
+                                        'target': col_formatted,
+                                        'value': group_by_interactions.loc[i, col],
+                                        'diagram': group_by_interactions.loc[i, 'typePost'],
+                                        'sub': True}, ignore_index=True)
+
+    total_reactions = group_by_interactions[reactions].sum()
+
+    for col in reactions:
+        col_formatted = reactions_to_french[col]
+        final_df = final_df.append({'source': 'Réactions',
+                                    'target': col_formatted,
+                                    'value': total_reactions[col],
+                                    'diagram': 'Principal',
+                                    'sub': True}, ignore_index=True)
+
+    final_df.to_csv(output_file, index=False)
+
+
 if __name__ == '__main__':
     df = pd.read_csv('poly-Facebook-2018-2020.csv')
     format_date(df)
@@ -140,3 +180,4 @@ if __name__ == '__main__':
     add_reaction_count(df)
     data_for_clustered_bc(df)
     data_for_stacked_barchart(df)
+    data_for_sankey(df)

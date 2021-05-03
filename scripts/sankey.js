@@ -100,7 +100,7 @@ function addColumnsTitle(data, nodeWidth){
 }
 
 function drawSelectedSankey(data, selectedNode, color, width, height) {
-    const nodes =["Réactions","Partage","Commentaires","likes", "Love", "Haha", "Wow", "Triste", "Colere", "Solid"]
+    const nodes =["Réactions","Partages","Commentaires","J'aime", "J'adore", "Haha", "Wouah", "Triste", "Grrr", "Solidaire"]
 
     drawNodes(data, data[selectedNode].nodes,color, width, height)
     drawLinks(data[selectedNode].links, color)
