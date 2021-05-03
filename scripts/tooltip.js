@@ -1,7 +1,3 @@
-/**
-* @param {object} d The data associated to the hovered element
-* @returns {string} The tooltip contents
-*/
 export function getContents (d) {
     var avg = null
     try {
