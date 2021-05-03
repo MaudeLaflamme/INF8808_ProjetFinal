@@ -23,14 +23,19 @@ export const text = [
                                     On s’intéresse à dresser un bilan des pages ayant partagé du contenu en explorant l’importance relative des pages médiatiques\
                                      par rapport aux pages diffusant tout autre type de contenu. Ce bilan aurait pour public cible les utilisateurs canadiens de\
                                     Facebook (25 millions de personnes), ce qui est comparable au public d’un grand média.</p>"},
-  {select: "#section1", text: "<h2>Exploration du comportement des utilisateurs</h2><p class='text-class'>Cette sous-section explore les comportements des utilisateurs en fonction du type de contenu proposé.\</p>"},
-  {select: "#viz1-text", text: "<h3>Sankey</h1><p class='text-class'>On observe que la <i>Vidéo</i> est le type de publication qui suscite le plus d’interactions de la part des utilisateurs. Les réactions constituent un peu plus du tiers des interactions recensées. De plus, quel qu’il soit le type de publication la réaction <i>J’aime</i> est la plus utilisée, tandis que la réaction <i>Solidaire</i> n'est que très rarement utilisée.</p>"},
+  {select: "#section1", text: "<h2>Exploration du comportement des utilisateurs</h2><p class='text-class'>Cette sous-section explore les comportements des \
+                                    utilisateurs en fonction du type de contenu proposé.\</p>"},
+  {select: "#viz1-text", text: "<h3>Réactions et interactions des utilisateurs selon le type de publication</h1><p class='text-class'>La visualisation suivante \
+                                    permet de voir comment sont distribuées les différents types d'interactions (commentaires, partages ou réactions) ainsi que \
+                                    les différentes réactions selon le type de publication. </br> On observe que la <i>Vidéo</i> est le type de publication qui suscite \
+                                    le plus d’interactions de la part des utilisateurs. Les réactions constituent un peu plus du tiers des interactions recensées. \
+                                    De plus, quel qu’il soit le type de publication la réaction <i>J’aime</i> est la plus utilisée, tandis que la réaction <i>Solidaire</i> n'est que très rarement utilisée.</p>"},
   {select: "#section2", text: "<h2>Comparaison entre page médiatiques et non-médiatiques</h2><p class='text-class'>Dans cette sous-section, \
                               nous allons explorer les différences entre les pages de médias officiels et les pages non-médiatiques. Ces différences \
                               incluent les différences du comportement des usagers ainsi que du contenu proposé par ces deux types de pages.<p>"},
   {select: "#viz2-text", text: "<h3>Nombre moyen d'interactions par type de publications</h1><p class='text-class'>La visualisation ci-dessous permet \
                               de comparer le nombre moyen d'interraction par type de publications (images, vidéos, statuts ou liens) selon les deux \
-                              types de pages.</p><p class='text-class'>On remarque que les pages non-médiatiques reçoivent beaucoup plus d'interactions \
+                              types de pages.</br>On remarque que les pages non-médiatiques reçoivent beaucoup plus d'interactions \
                               que les pages de médias officiels, et ce, pour tous types de publications confondus. On peut également voir que le type de \
                               publication <i>Vidéo</i> est celui qui provoque le plus d'interactions, surtout pour les pages non-médiatiques pour lesquelles \
                               il en entraîne plus du double de celles médiatiques. Une autre observation notable est que la seule catégorie de publication \
