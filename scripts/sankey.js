@@ -173,7 +173,6 @@ function addLabels(columns, width, height){
 
 
 function addIcons(nodes, width, height){
-    
     d3.select(".viz1-svg").append("g")
             .attr("class", "sankey-label")
             .selectAll("text")
@@ -184,7 +183,7 @@ function addIcons(nodes, width, height){
             .attr('width', 20)
             .attr('height', 24)
             .attr("text-anchor", "middle")
-            .attr("xlink:href", d => "./icons/"+d.name+".png");
+            .attr("xlink:href", d => (d.value != 0)?"./icons/"+d.name+".png":"");
 
 }
 
