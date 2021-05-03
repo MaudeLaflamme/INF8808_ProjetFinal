@@ -15,7 +15,7 @@ function orderPostTypes(data) {
 export function setSVG(margin_left){
     d3.select(".viz2-svg").append("g")
     .attr("class", "barchart-group")
-    .attr("transform", "translate(" + margin_left + ", 0)")
+    .attr("transform", "translate(85, 0)")
 }  
 
 export function setLegend(width, margin_top) {
@@ -36,6 +36,20 @@ export function setXScale(data, margin, width, height) {
       .attr("class", "x axis")
       .call(d3.axisBottom(xScale).tickSize(0))
       .attr("transform", "translate(-1, " + (height-margin.bottom) + ")")
+
+    d3.select('.barchart-group')
+      .append("text")             
+      .attr("transform", "translate( -45," + (height-margin.bottom)/2 + ")")
+      .attr("class", "axis-label")
+      .style("text-anchor", "middle")
+      .html("Nombre moyen")
+    d3.select('.barchart-group')
+      .append("text")             
+      .attr("transform", "translate( -45," + ((height-margin.bottom)/2 + 15) + ")")
+      .attr("class", "axis-label")
+      .style("text-anchor", "middle")
+      .html("d'interactions")
+    
     return xScale
 }
 
@@ -98,4 +112,5 @@ export function drawChart(data, color, xScale, subgroupScale, yScale, height, ma
     .attr('text-anchor', 'middle')
     .attr("font-size", "14px")
     .attr("fill", "black")
+
 }

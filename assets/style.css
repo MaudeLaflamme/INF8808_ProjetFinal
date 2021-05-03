@@ -97,6 +97,11 @@ button:hover, button:active {
     padding-bottom: 25px;
 }
 
+.axis-label {
+    font-size: 10px;
+    font-family: 'sans-serif';
+}
+
 .d3-tip {
     line-height: 1;
     padding: 12px;
