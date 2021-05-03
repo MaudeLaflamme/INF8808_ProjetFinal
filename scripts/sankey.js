@@ -86,13 +86,13 @@ function groupByColumn(data){
 function addColumnsTitle(data, nodeWidth){
 
     d3.select("#viz1-titles").append("svg")
-            .attr('width', 970)
+            .attr('width', 1000)
             .attr('height', 30)
             .attr("class", "sankey-columns-title")
             .selectAll("text")
             .data(data)
             .join("text")
-            .attr("x", d => d.x + nodeWidth /2 +8)
+            .attr("x", d => d.x + nodeWidth /2 +12)
             .attr("y", d => 12)
             .attr("dy", "0.35em")
             .attr("text-anchor", 'middle')
@@ -173,6 +173,7 @@ function addLabels(columns, width, height){
 
 
 function addIcons(nodes){
+    console.log(nodes)
     d3.select(".viz1-svg").append("g")
             .attr("class", "sankey-label")
             .selectAll("text")

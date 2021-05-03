@@ -10,7 +10,7 @@ export const margin = {top: 20, right:160, bottom:35, left:35}
 export const width = 960 - margin.left - margin.right
 export const stackedHeight = 500
 export const text = [
-  {select: "#introduction", text: "<h1>FACEBOOK</h1><p class='text-class'>Avec 2,74 milliards d’utilisateurs actifs mensuellement, Facebook \
+  {select: "#introduction", text: "<h1>Les pages Facebook et leur influence</h1><p class='text-class'>Avec 2,74 milliards d’utilisateurs actifs mensuellement, Facebook \
                                     est la plateforme de réseau social la plus utilisée dans le monde et sa popularité est bien établie depuis \
                                      maintenant une dizaine d’années. Il va sans dire que c’est donc une plateforme de choix pour partager du \
                                      contenu afin de rejoindre une très grande audience rapidement; ainsi, pratiquement tous les médias d’information \

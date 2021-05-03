@@ -27,7 +27,7 @@ import d3Tip from 'd3-tip'
     // VIZ 1
     var colorSankey = d3.scaleOrdinal(constants.colorScheme)
     d3.csv('./data_sankey.csv').then(function (data) {
-      data = sankey.formatData(data, constants.svgSize.width, constants.svgSize.height)
+      data = sankey.formatData(data, (constants.svgSize.width - 40), constants.svgSize.height)
       sankey.drawSelectedSankey(data, 'Principal', colorSankey, constants.svgSize.width, constants.svgSize.height)
       
     })
